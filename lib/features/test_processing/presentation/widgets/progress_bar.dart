@@ -22,7 +22,7 @@ class ProgressBar extends StatelessWidget {
       height: height,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white, // Фон трека
+        color: Colors.white,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
           color: borderColor,

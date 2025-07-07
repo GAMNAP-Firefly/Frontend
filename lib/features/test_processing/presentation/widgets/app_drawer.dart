@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/strings.dart';
+
+import '../test_proccesing_page.dart';
 
 class AppDrawer extends StatelessWidget {
   final int questionCount;
@@ -21,7 +24,6 @@ class AppDrawer extends StatelessWidget {
       backgroundColor: backgroundColor,
       child: Column(
         children: [
-          // Верхняя панель с заголовком
           Container(
             height: 70,
             decoration: BoxDecoration(
@@ -47,12 +49,12 @@ class AppDrawer extends StatelessWidget {
                       colors: [Colors.amber, Colors.yellow],
                     ).createShader(bounds);
                   },
-                  child: Icon(Icons.lightbulb, color: Colors.white),
+                  child: const Icon(Icons.lightbulb, color: Colors.white),
                 ),
                 onPressed: () {},
               ),
               title: Text(
-                'FITTEST',
+                Strings.title,
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: "Raleway",
@@ -71,30 +73,45 @@ class AppDrawer extends StatelessWidget {
               elevation: 0,
             ),
           ),
-
-          // Список вопросов
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: questionCount,
               itemBuilder: (context, index) {
                 final colorIndex = index % tileColors.length;
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  decoration: BoxDecoration(
-                    color: tileColors[colorIndex],
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        'Вопрос #${index + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16,
+                final questionNumber = index + 1;
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TestProcessingPage(
+                          questionNumber: questionNumber,
+                          questionText: Strings.questionMock,
+                          totalQuestions: questionCount,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    decoration: BoxDecoration(
+                      color: tileColors[colorIndex],
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          '${Strings.questionNum}$questionNumber',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),

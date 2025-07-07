@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/strings.dart';
 
 class QuestionHeader extends StatelessWidget {
   final int number;
@@ -12,7 +13,7 @@ class QuestionHeader extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            'Вопрос #$number',
+            '${Strings.questionNum}$number',
             style: const TextStyle(
               fontSize: 19,
               color: Color(0xFF737E8A),

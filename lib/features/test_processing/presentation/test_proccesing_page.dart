@@ -4,41 +4,34 @@ import 'package:fittest/features/test_processing/presentation/widgets/progress_b
 import 'package:fittest/features/test_processing/presentation/widgets/progress_percentage.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/question_block.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/back_button.dart';
+import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart' hide BackButton;
 
-void main() {
-  runApp(const MyApp());
-}
+class TestProcessingPage extends StatelessWidget {
+  final int questionNumber;
+  final String questionText;
+  final int totalQuestions;
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FITTEST',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFFECEFF4),
-      ),
-      home: const QuestionPage(),
-    );
-  }
-}
-
-class QuestionPage extends StatelessWidget {
-  const QuestionPage({super.key});
+  const TestProcessingPage({
+    super.key,
+    required this.questionNumber,
+    required this.questionText,
+    required this.totalQuestions,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final progress = 0.09;
+    final progress = (questionNumber - 1) / totalQuestions;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFF737E8A)),
+            icon: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Color(0xFF737E8A),
+            ),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -46,13 +39,9 @@ class QuestionPage extends StatelessWidget {
         ),
         title: Builder(
           builder: (context) {
-            // Получаем appBarTheme из текущей темы
             final appBarTheme = Theme.of(context).appBarTheme;
-            // Ширина leading-виджета (по умолчанию 56.0)
             final leadingWidth = appBarTheme.leadingWidth ?? 56.0;
-            // Ширина иконки (24.0 для Icons.arrow_back)
             final iconWidth = 24.0;
-            // Расстояние между иконкой и началом ProgressBar
             final spaceBetweenIconAndProgress = (leadingWidth - iconWidth) / 2;
 
             return Row(
@@ -66,7 +55,7 @@ class QuestionPage extends StatelessWidget {
                     borderRadius: 6.0,
                   ),
                 ),
-                SizedBox(width: spaceBetweenIconAndProgress), // Отступ справа от ProgressBar
+                SizedBox(width: spaceBetweenIconAndProgress),
                 ProgressPercentage(progress: progress),
               ],
             );
@@ -76,44 +65,66 @@ class QuestionPage extends StatelessWidget {
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1.0),
-          child: Container(
-            color: const Color(0xFF737E8A),
-            height: 1.0,
-          ),
+          child: Container(color: const Color(0xFF737E8A), height: 1.0),
         ),
       ),
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(questionCount: totalQuestions),
       body: Stack(
         children: [
-          // Центрированный контент
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Важно для правильного центрирования
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const QuestionHeader(
-                    number: 1,
-                    text: "Вы когда-нибудь мечтали стать лучшей версией себя?",
-                  ),
+                  QuestionHeader(number: questionNumber, text: questionText),
                   const SizedBox(height: 40),
                   AnswerButtons(
-                    onTruePressed: () {},
-                    onUnknownPressed: () {},
-                    onFalsePressed: () {},
+                    onPressed: () {
+                      if (questionNumber < totalQuestions) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TestProcessingPage(
+                              questionNumber: questionNumber + 1,
+                              questionText: Strings.questionMock,
+                              totalQuestions: totalQuestions,
+                            ),
+                          ),
+                        );
+                      } else {
+                        /// TODO: переход на экран результата
+                      }
+                    },
                   ),
-                  const SizedBox(height: 80), // Отступ для кнопки "Назад"
+                  const SizedBox(height: 80),
                 ],
               ),
             ),
           ),
-
-          // Кнопка "Назад" внизу экрана
           Positioned(
             left: 16,
             right: 16,
             bottom: 16,
-            child: const BackButton(),
+            child: BackButton(
+              onPressed: () {
+                if (questionNumber > 1) {
+                  //Navigator.pop(context, questionNumber - 1);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TestProcessingPage(
+                        questionNumber: questionNumber - 1,
+                        questionText: Strings.questionMock,
+                        totalQuestions: totalQuestions,
+                      ),
+                    ),
+                  );
+                } else {
+                  /// TODO: переход на экран c инструкцией к тесту
+                }
+              },
+            ),
           ),
         ],
       ),

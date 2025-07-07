@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/strings.dart';
 
 class AnswerButtons extends StatelessWidget {
-  final VoidCallback onTruePressed;
-  final VoidCallback onUnknownPressed;
-  final VoidCallback onFalsePressed;
+  final VoidCallback onPressed;
 
   const AnswerButtons({
     super.key,
-    required this.onTruePressed,
-    required this.onUnknownPressed,
-    required this.onFalsePressed,
+    required this.onPressed,
   });
 
   @override
@@ -17,7 +14,7 @@ class AnswerButtons extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: onTruePressed,
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFA3BE8C),
             minimumSize: const Size(double.infinity, 50),
@@ -26,7 +23,7 @@ class AnswerButtons extends StatelessWidget {
             ),
           ),
           child: const Text(
-            'Верно',
+            Strings.ansRight,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -37,7 +34,7 @@ class AnswerButtons extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ElevatedButton(
-          onPressed: onUnknownPressed,
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFD08770),
             minimumSize: const Size(double.infinity, 50),
@@ -46,7 +43,7 @@ class AnswerButtons extends StatelessWidget {
             ),
           ),
           child: const Text(
-            'Не знаю',
+            Strings.ansNotSure,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -57,7 +54,7 @@ class AnswerButtons extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ElevatedButton(
-          onPressed: onFalsePressed,
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFBF616A),
             minimumSize: const Size(double.infinity, 50),
@@ -66,7 +63,7 @@ class AnswerButtons extends StatelessWidget {
             ),
           ),
           child: const Text(
-            'Неверно',
+            Strings.ansWrong,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
