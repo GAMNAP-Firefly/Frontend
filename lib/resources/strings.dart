@@ -16,7 +16,7 @@ class Strings {
   static const String testNameMock2 = "MBTI";
   static const String testNameMock3 = "ENNEAGRAM";
   static const String testAuthorMock = "Авторы: S. Hathaway, J. McKinley (1943)";
-  static const String start = "Присутпить";
+  static const String start = "Приступить";
   static const String testDescMock = "MMPI - это психологический тест, разработанный для оценки личностных характеристик и психопатологии. В России он известен как СМИЛ (Стандартизированное многофакторное исследование личности). Тест используется для выявления различных психологических состояний и расстройств, оценки личностных черт, а также для планирования психологической помощи и лечения. ";
 
 }
