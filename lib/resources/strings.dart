@@ -10,4 +10,13 @@ class Strings {
   static const String resMockImage = "assets/images/mock_image.png";
   static const String resTextMock = "🔥Вы - Агапова Нелли Витальевна!🔥";
   static const String resDescMock = "✅ Это очень редкий типаж крутых дефф4онок разработчиков💅, гордитесь собой😎";
+  static const String lightBulb = "assets/images/lightbulb.png";
+  static const String fittest = "FITTEST";
+  static const String testNameMock1 = "MMPI";
+  static const String testNameMock2 = "MBTI";
+  static const String testNameMock3 = "ENNEAGRAM";
+  static const String testAuthorMock = "Авторы: S. Hathaway, J. McKinley (1943)";
+  static const String start = "Приступить";
+  static const String testDescMock = "MMPI - это психологический тест, разработанный для оценки личностных характеристик и психопатологии. В России он известен как СМИЛ (Стандартизированное многофакторное исследование личности). Тест используется для выявления различных психологических состояний и расстройств, оценки личностных черт, а также для планирования психологической помощи и лечения. ";
+
 }

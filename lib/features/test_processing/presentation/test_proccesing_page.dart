@@ -4,6 +4,7 @@ import 'package:fittest/features/test_processing/presentation/widgets/progress_b
 import 'package:fittest/features/test_processing/presentation/widgets/progress_percentage.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/question_block.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/back_button.dart';
+import 'package:fittest/features/test_result/presentation/test_result_page.dart';
 import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart' hide BackButton;
 
@@ -93,7 +94,12 @@ class TestProcessingPage extends StatelessWidget {
                           ),
                         );
                       } else {
-                        /// TODO: переход на экран результата
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TestResultPage(),
+                          ),
+                        );
                       }
                     },
                   ),
