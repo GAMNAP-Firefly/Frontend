@@ -23,7 +23,7 @@ class HomeLabel extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 1),
           child: Text(
-            Strings.fittest,
+            Strings.title,
             style: TextStyle(fontSize: 25, color: Color(0xFF737E8A)),
           ),
         ) ],

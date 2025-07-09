@@ -20,7 +20,7 @@ class TestResultPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: textColor),
           onPressed: () {
-            /// TODO: переход на предыдущий экран
+            Navigator.pop(context);
           },
         ),
       ),

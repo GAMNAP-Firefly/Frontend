@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart';
 import 'features/home/presentation/home_page.dart';
 
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "FITTEST",
+      title: Strings.title,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFECEFF4),

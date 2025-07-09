@@ -127,7 +127,7 @@ class TestProcessingPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  /// TODO: переход на экран c инструкцией к тесту
+                  Navigator.pop(context);
                 }
               },
             ),

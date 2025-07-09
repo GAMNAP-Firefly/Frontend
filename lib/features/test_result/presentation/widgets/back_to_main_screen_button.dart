@@ -1,3 +1,4 @@
+import 'package:fittest/features/home/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
@@ -11,7 +12,12 @@ class BackToMainScreenButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        /// TODO: переход на главный экран
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: backButtonColor,
