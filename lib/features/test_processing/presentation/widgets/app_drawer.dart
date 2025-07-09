@@ -83,7 +83,7 @@ class AppDrawer extends StatelessWidget {
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
