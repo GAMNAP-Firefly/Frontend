@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
+import '../../../home/domain/model/test.dart';
 import '../../../test_processing/presentation/test_proccesing_page.dart';
 
 class StartTestButton extends StatelessWidget {
   final AnimationController controller;
+  final Test test;
 
-  const StartTestButton({super.key, required this.controller});
+  const StartTestButton({super.key, required this.controller, required this.test});
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +43,8 @@ class StartTestButton extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const TestProcessingPage(
-                    questionNumber: 1,
-                    questionText: Strings.questionMock,
-                    totalQuestions: 100,
+                  builder: (context) => TestProcessingPage(
+                    test: test,
                   ),
                 ),
               );

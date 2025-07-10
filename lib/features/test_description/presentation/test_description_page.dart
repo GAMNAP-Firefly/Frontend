@@ -3,8 +3,12 @@ import 'package:fittest/features/test_description/presentation/widgets/continue_
 import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../home/domain/model/test.dart';
+
 class TestDescriptionPage extends StatefulWidget {
-  const TestDescriptionPage({super.key});
+  final Test test;
+  const TestDescriptionPage({super.key,
+    required this.test,});
 
   @override
   State<TestDescriptionPage> createState() => _TestDescriptionPageState();
@@ -68,7 +72,7 @@ class _TestDescriptionPageState extends State<TestDescriptionPage>
                         children: [
                           const TestDescriptionCard(),
                           const SizedBox(height: 40),
-                          StartTestButton(controller: _controller),
+                          StartTestButton(controller: _controller, test: widget.test),
                         ],
                       ),
                     ),
