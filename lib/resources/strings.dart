@@ -18,8 +18,10 @@ class Strings {
   static const String testNameMock3 = "Enneagram";
   static const String results = "Results";
   static const String myResultsButton = "Мои результаты";
-  static const String testAuthorMock = "Авторы: S. Hathaway, J. McKinley (1943)";
-  static const String start = "Приступить";
+  static const String authors = "Авторы:";
+  static const String testAuthorMock = "S. Hathaway, J. McKinley (1943)";
+  static const String start = "Приступить →";
+  static const String descPageTitle = "Описание теста";
   static const String testDescMock = "MMPI - это психологический тест, разработанный для оценки личностных характеристик и психопатологии. В России он известен как СМИЛ (Стандартизированное многофакторное исследование личности). Тест используется для выявления различных психологических состояний и расстройств, оценки личностных черт, а также для планирования психологической помощи и лечения. ";
   static const String homePageDesc1 = "Министерский многоаспектный личностный опросник. Помогает выявить личностные особенности и психологические состояния.";
   static const String homePageDesc2 = "Индикатор типов Майерс-Бритс. Определяет ваш психологический тип личности по четырём диагональному анализу.";

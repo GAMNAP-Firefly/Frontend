@@ -1,4 +1,4 @@
-import 'package:fittest/features/test_description/presentation/widgets/test_description.dart';
+import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/answer_buttons.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/app_drawer.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/progress_bar.dart';
