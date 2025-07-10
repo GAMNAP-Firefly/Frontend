@@ -5,6 +5,8 @@ import '../test_proccesing_page.dart';
 
 class AppDrawer extends StatelessWidget {
   final int questionCount;
+  final int currentQuestionIndex;
+  final Function(int) onQuestionSelected;
   final Color backgroundColor = const Color(0xFFECEFF4);
   final List<Color> tileColors = const [
     Color(0xFFD08770),
@@ -15,7 +17,9 @@ class AppDrawer extends StatelessWidget {
 
   const AppDrawer({
     super.key,
-    this.questionCount = 50,
+    required this.questionCount,
+    required this.currentQuestionIndex,
+    required this.onQuestionSelected,
   });
 
   @override
@@ -53,19 +57,20 @@ class AppDrawer extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
-              title: Text(
+              title: const Text(
                 Strings.title,
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: "Raleway",
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF737E8A),
+                  color: Color(0xFF737E8A),
                 ),
               ),
               centerTitle: true,
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF737E8A)),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                      color: Color(0xFF737E8A)),
                   onPressed: () => Navigator.pop(context),
                 ),
               ],
@@ -80,26 +85,18 @@ class AppDrawer extends StatelessWidget {
               itemBuilder: (context, index) {
                 final colorIndex = index % tileColors.length;
                 final questionNumber = index + 1;
+                final isCurrent = questionNumber == currentQuestionIndex;
 
                 return GestureDetector(
-                  onTap: () {
-                    //Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TestProcessingPage(
-                          questionNumber: questionNumber,
-                          questionText: Strings.questionMock,
-                          totalQuestions: questionCount,
-                        ),
-                      ),
-                    );
-                  },
+                  onTap: () => onQuestionSelected(questionNumber),
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 8),
                     decoration: BoxDecoration(
                       color: tileColors[colorIndex],
                       borderRadius: BorderRadius.circular(28),
+                      border: isCurrent
+                          ? Border.all(color: Colors.white, width: 3)
+                          : null,
                     ),
                     child: Center(
                       child: Padding(
