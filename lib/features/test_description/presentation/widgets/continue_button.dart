@@ -5,8 +5,13 @@ import '../../../test_processing/presentation/test_proccesing_page.dart';
 
 class StartTestButton extends StatelessWidget {
   final AnimationController controller;
+  final String buttonText;
 
-  const StartTestButton({super.key, required this.controller});
+  const StartTestButton({
+    super.key,
+    required this.controller,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +57,8 @@ class StartTestButton extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16),
               alignment: Alignment.center,
-              child: const Text(
-                Strings.start,
+              child: Text(
+                buttonText,
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,

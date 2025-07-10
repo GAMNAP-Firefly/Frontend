@@ -3,6 +3,8 @@ import 'package:fittest/features/test_description/presentation/widgets/continue_
 import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../../resources/strings.dart';
+
 class TestDescriptionPage extends StatefulWidget {
   const TestDescriptionPage({super.key});
 
@@ -63,12 +65,14 @@ class _TestDescriptionPageState extends State<TestDescriptionPage>
                   Expanded(
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.fromLTRB(24, 80, 24, 40),
+                      padding: const EdgeInsets.fromLTRB(24, 72, 24, 40),
                       child: Column(
                         children: [
                           const TestDescriptionCard(),
-                          const SizedBox(height: 40),
-                          StartTestButton(controller: _controller),
+                          const SizedBox(height: 44),
+                          StartTestButton(controller: _controller, buttonText: Strings.startF),
+                          const SizedBox(height: 12),
+                          StartTestButton(controller: _controller, buttonText: Strings.startM),
                         ],
                       ),
                     ),

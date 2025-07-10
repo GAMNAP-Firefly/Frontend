@@ -11,8 +11,11 @@ class Strings {
   static const String questionMock = "Вы когда-нибудь мечтали стать лучшей версией себя?";
   static const String resMockImage = "assets/images/mock_image.png";
   static const String fittinImage = "assets/images/fittin.png";
-  static const String resTextMock = "🔥Вы - Агапова Нелли Витальевна!🔥";
-  static const String resDescMock = "✅ Это очень редкий типаж крутых дефф4онок разработчиков💅, гордитесь собой😎";
+  static const String resPageTitle = "Результаты теста";
+  static const String resInterprTitle = "Интерпретация";
+  static const String resDescMock = 'По результатам теста наблюдается нормальный профиль личности с некоторыми особенностями. '
+      'Рекомендуется обратить внимание на показатели по шкалам, выходящим за пределы среднего диапазона. '
+      'Для более детальной интерпретации проконсультируйтесь со специалистом.';
   static const String testNameMock1 = "MMPI";
   static const String testNameMock2 = "MBTI";
   static const String testNameMock3 = "Enneagram";
@@ -20,7 +23,8 @@ class Strings {
   static const String myResultsButton = "Мои результаты";
   static const String authors = "Авторы:";
   static const String testAuthorMock = "S. Hathaway, J. McKinley (1943)";
-  static const String start = "Приступить →";
+  static const String startF = "Тест для женщин";
+  static const String startM = "Тест для мужчин";
   static const String descPageTitle = "Описание теста";
   static const String testDescMock = "MMPI - это психологический тест, разработанный для оценки личностных характеристик и психопатологии. В России он известен как СМИЛ (Стандартизированное многофакторное исследование личности). Тест используется для выявления различных психологических состояний и расстройств, оценки личностных черт, а также для планирования психологической помощи и лечения. ";
   static const String homePageDesc1 = "Министерский многоаспектный личностный опросник. Помогает выявить личностные особенности и психологические состояния.";
