@@ -1,17 +1,13 @@
-import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/answer_buttons.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/app_drawer.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/progress_bar.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/progress_percentage.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/question_block.dart';
-import 'package:fittest/features/test_processing/presentation/widgets/back_button.dart';
-import 'package:fittest/features/test_result/presentation/test_result_page.dart';
+import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
-import 'package:flutter/material.dart' hide BackButton;
 
 import '../../test_description/presentation/test_description_page.dart';
+import '../../test_result/presentation/test_result_page.dart';
+import 'widgets/app_drawer.dart';
+import 'widgets/question_card.dart';
+import 'widgets/answer_buttons.dart';
 
-class TestProcessingPage extends StatelessWidget {
+class TestProcessingPage extends StatefulWidget {
   final int questionNumber;
   final String questionText;
   final int totalQuestions;
@@ -24,124 +20,180 @@ class TestProcessingPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final progress = (questionNumber - 1) / totalQuestions;
+  State<TestProcessingPage> createState() => _TestProcessingPageState();
+}
 
+class _TestProcessingPageState extends State<TestProcessingPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Color(0xFF737E8A),
-            ),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+      key: _scaffoldKey,
+      backgroundColor: const Color(0xFFECEFF4),
+      appBar: _buildAppBar(),
+      drawer: AppDrawer(
+        questionCount: widget.totalQuestions,
+        onQuestionSelected: _navigateToQuestion,
+      ),
+      body: _buildBody(),
+      floatingActionButton: _buildBackButton(),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    final progress = widget.questionNumber / widget.totalQuestions;
+
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leading: IconButton(
+        icon: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: const Color(0xFFECEFF4),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Icon(
+            Icons.menu_rounded,
+            color: Color(0xFF3D4853),
           ),
         ),
-        title: Builder(
-          builder: (context) {
-            final appBarTheme = Theme.of(context).appBarTheme;
-            final leadingWidth = appBarTheme.leadingWidth ?? 56.0;
-            final iconWidth = 24.0;
-            final spaceBetweenIconAndProgress = (leadingWidth - iconWidth) / 2;
-
-            return Row(
-              children: [
-                Expanded(
-                  child: ProgressBar(
-                    progress: progress,
-                    fillColor: const Color(0xFF8FBCBB),
-                    borderColor: const Color(0xFF3D4853).withOpacity(0.2),
-                    height: 12.0,
-                    borderRadius: 6.0,
-                  ),
-                ),
-                SizedBox(width: spaceBetweenIconAndProgress),
-                ProgressPercentage(progress: progress),
-              ],
-            );
-          },
-        ),
-        backgroundColor: const Color(0xFFECEFF4),
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0),
-          child: Container(color: const Color(0xFF737E8A), height: 1.0),
+        onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+      ),
+      title: Text(
+        '${widget.questionNumber}/${widget.totalQuestions}',
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF3D4853),
+          fontFamily: "Raleway",
         ),
       ),
-      drawer: AppDrawer(questionCount: totalQuestions),
-      body: Stack(
-        children: [
-          Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  QuestionHeader(number: questionNumber, text: questionText),
-                  const SizedBox(height: 40),
-                  AnswerButtons(
-                    onPressed: () {
-                      if (questionNumber < totalQuestions) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TestProcessingPage(
-                              questionNumber: questionNumber + 1,
-                              questionText: Strings.questionMock,
-                              totalQuestions: totalQuestions,
-                            ),
-                          ),
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TestResultPage(),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 80),
-                ],
-              ),
-            ),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          icon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return const LinearGradient(
+                colors: [Colors.amber, Colors.yellow],
+              ).createShader(bounds);
+            },
+            child: const Icon(Icons.lightbulb, color: Colors.white),
           ),
-          Positioned(
-            left: 16,
-            right: 16,
-            bottom: 16,
-            child: BackButton(
-              onPressed: () {
-                if (questionNumber > 1) {
-                  Navigator.pop(context, questionNumber - 1);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TestProcessingPage(
-                        questionNumber: questionNumber - 1,
-                        questionText: Strings.questionMock,
-                        totalQuestions: totalQuestions,
-                      ),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TestDescriptionPage(),
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
-        ],
+          onPressed: () {},
+        ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(4),
+        child: LinearProgressIndicator(
+          value: progress,
+          backgroundColor: const Color(0xFFD8DEE9),
+          color: const Color(0xFF8FBCBB),
+          minHeight: 4,
+        ),
       ),
     );
+  }
+
+  Widget _buildBody() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: constraints.maxHeight * 0.18),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      QuestionCard(
+                        questionNumber: widget.questionNumber,
+                        questionText: widget.questionText,
+                      ),
+                      const SizedBox(height: 40),
+                      AnswerButtons(
+                        onAnswerSelected: _navigateToNext,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBackButton() {
+    return FloatingActionButton(
+      onPressed: _navigateBack,
+      backgroundColor: Colors.white,
+      elevation: 4,
+      child: const Icon(
+        Icons.arrow_back_ios_new_rounded,
+        color: Color(0xFF3D4853),
+      ),
+    );
+  }
+
+  void _navigateToNext(String answer) {
+    if (widget.questionNumber < widget.totalQuestions) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TestProcessingPage(
+            questionNumber: widget.questionNumber + 1,
+            questionText: Strings.questionMock,
+            totalQuestions: widget.totalQuestions,
+          ),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const TestResultPage()),
+      );
+    }
+  }
+
+  void _navigateToQuestion(int number) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TestProcessingPage(
+          questionNumber: number,
+          questionText: Strings.questionMock,
+          totalQuestions: widget.totalQuestions,
+        ),
+      ),
+    );
+  }
+
+  void _navigateBack() {
+    if (widget.questionNumber > 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TestProcessingPage(
+            questionNumber: widget.questionNumber - 1,
+            questionText: Strings.questionMock,
+            totalQuestions: widget.totalQuestions,
+          ),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const TestDescriptionPage()),
+      );
+    }
   }
 }

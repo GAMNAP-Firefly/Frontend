@@ -1,78 +1,90 @@
 import 'package:flutter/material.dart';
-import 'package:fittest/resources/strings.dart';
 
 class AnswerButtons extends StatelessWidget {
-  final VoidCallback onPressed;
+  final Function(String) onAnswerSelected;
 
   const AnswerButtons({
     super.key,
-    required this.onPressed,
+    required this.onAnswerSelected,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFA3BE8C),
-            minimumSize: const Size(double.infinity, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
-            ),
+        _buildAnswerButton(
+          text: "Верно",
+          gradient: const LinearGradient(
+            colors: [Color(0xFFA3BE8C), Color(0xFF8FBCBB)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          child: const Text(
-            Strings.ansRight,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: "Raleway",
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          onPressed: () => onAnswerSelected("Верно"),
         ),
-        const SizedBox(height: 12),
-        ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFD08770),
-            minimumSize: const Size(double.infinity, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
-            ),
+        const SizedBox(height: 16),
+        _buildAnswerButton(
+          text: "Не знаю",
+          gradient: const LinearGradient(
+            colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          child: const Text(
-            Strings.ansNotSure,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: "Raleway",
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          onPressed: () => onAnswerSelected("Не знаю"),
         ),
-        const SizedBox(height: 12),
-        ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFBF616A),
-            minimumSize: const Size(double.infinity, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
-            ),
+        const SizedBox(height: 16),
+        _buildAnswerButton(
+          text: "Неверно",
+          gradient: const LinearGradient(
+            colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          child: const Text(
-            Strings.ansWrong,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: "Raleway",
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          onPressed: () => onAnswerSelected("Неверно"),
         ),
       ],
+    );
+  }
+
+  Widget _buildAnswerButton({
+    required String text,
+    required Gradient gradient,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: gradient.colors.first.withOpacity(0.3),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onPressed,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                fontFamily: "Raleway",
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
