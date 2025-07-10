@@ -1,3 +1,4 @@
+import 'package:fittest/features/test_description/presentation/widgets/test_description.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/answer_buttons.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/app_drawer.dart';
 import 'package:fittest/features/test_processing/presentation/widgets/progress_bar.dart';
@@ -7,6 +8,8 @@ import 'package:fittest/features/test_processing/presentation/widgets/back_butto
 import 'package:fittest/features/test_result/presentation/test_result_page.dart';
 import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart' hide BackButton;
+
+import '../../test_description/presentation/test_description_page.dart';
 
 class TestProcessingPage extends StatelessWidget {
   final int questionNumber;
@@ -115,7 +118,7 @@ class TestProcessingPage extends StatelessWidget {
             child: BackButton(
               onPressed: () {
                 if (questionNumber > 1) {
-                  //Navigator.pop(context, questionNumber - 1);
+                  Navigator.pop(context, questionNumber - 1);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -127,7 +130,12 @@ class TestProcessingPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TestDescriptionPage(),
+                    ),
+                  );
                 }
               },
             ),
