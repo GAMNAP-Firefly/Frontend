@@ -1,37 +1,126 @@
 import 'package:flutter/material.dart';
 
 class TestItem extends StatelessWidget {
+  final String icon;
+  final String title;
+  final String description;
+  final String buttonText;
+  final Gradient gradient;
   final VoidCallback onPressed;
-  final String testName;
-  final Color color;
 
-  const TestItem({super.key, required this.onPressed, required this.testName, required this.color});
+  const TestItem({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.gradient,
+    required this.onPressed,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            minimumSize: const Size(double.infinity, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
-            ),
+    final color = gradient.colors.first;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
           ),
-          child: Text(
-            testName,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: "Raleway",
-              fontWeight: FontWeight.w800,
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      icon,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                        fontFamily: "Raleway",
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF3D4853),
+                    fontFamily: "Raleway",
+                  ),
+                ),
+              ],
             ),
-          ),
+            const SizedBox(height: 12),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xFF737E8A),
+                fontWeight: FontWeight.bold,
+                fontFamily: "Raleway",
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: gradient,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton(
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                  child: Text(
+                    buttonText,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 12),
-      ],
+      ),
     );
   }
 }

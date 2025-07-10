@@ -1,70 +1,83 @@
+import 'package:fittest/features/test_description/presentation/widgets/app_bar.dart';
 import 'package:fittest/features/test_description/presentation/widgets/continue_button.dart';
-import 'package:fittest/features/test_description/presentation/widgets/test_description.dart';
-import 'package:fittest/features/test_processing/presentation/test_proccesing_page.dart';
-import 'package:flutter/material.dart' hide BackButton;
-import 'package:fittest/resources/strings.dart';
+import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
+import 'package:flutter/material.dart';
 
-class TestDescriptionPage extends StatelessWidget {
+class TestDescriptionPage extends StatefulWidget {
   const TestDescriptionPage({super.key});
+
+  @override
+  State<TestDescriptionPage> createState() => _TestDescriptionPageState();
+}
+
+class _TestDescriptionPageState extends State<TestDescriptionPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _opacityAnimation;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _initAnimations();
+    _controller.forward();
+  }
+
+  void _initAnimations() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _opacityAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.97,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(32),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 8,
-                    spreadRadius: 1,
-                    offset: Offset(0, 4),
+      backgroundColor: const Color(0xFFECEFF4),
+      body: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Opacity(
+            opacity: _opacityAnimation.value,
+            child: Transform.scale(
+              scale: _scaleAnimation.value,
+              child: Column(
+                children: [
+                  DescriptionAppBar(controller: _controller),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(24, 80, 24, 40),
+                      child: Column(
+                        children: [
+                          const TestDescriptionCard(),
+                          const SizedBox(height: 40),
+                          StartTestButton(controller: _controller),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 1),
-              child: Text(
-                Strings.testNameMock1,
-                style: TextStyle(fontSize: 25, color: Color(0xFF737E8A)),
-              ),
             ),
-            const SizedBox(height: 40),
-            TestDescription(testDesc: Strings.testDescMock),
-            const SizedBox(height: 15),
-            Text(
-              Strings.testAuthorMock,
-              style: const TextStyle(
-                fontSize: 20,
-                color: Color(0xFF3D4853),
-                fontFamily: "Raleway",
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            ContinueButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TestProcessingPage(
-                      questionNumber: 1,
-                      questionText: Strings.questionMock,
-                      totalQuestions: 100,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
