@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
-import '../test_proccesing_page.dart';
 
 class BackButton extends StatelessWidget {
   final VoidCallback onPressed;
