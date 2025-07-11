@@ -144,6 +144,8 @@ class _TestProcessingPageState extends State<TestProcessingPage> {
     );
   }
 
+
+
   void _navigateToNext(String answer) {
     if (widget.questionNumber < widget.totalQuestions) {
       Navigator.pushReplacement(
@@ -159,7 +161,24 @@ class _TestProcessingPageState extends State<TestProcessingPage> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const TestResultPage()),
+        MaterialPageRoute(
+          builder: (context) => TestResultPage(
+            scaleResults: {
+              'Шкала L': 39.0,
+              'Шкала F': 60.0,
+              'Шкала K': 50.0,
+              'Ипохондрия': 70.0,
+              'Депрессия': 65.0,
+              'Истерия': 55.0,
+              'Психопатия': 75.0,
+              'Мужественность': 40.0,
+              'Паранойя': 58.0,
+              'Психастения': 62.0,
+              'Шизофрения': 68.0,
+              'Гипомания': 52.0,
+            },
+          ),
+        ),
       );
     }
   }
