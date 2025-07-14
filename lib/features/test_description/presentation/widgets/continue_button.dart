@@ -1,3 +1,4 @@
+import 'package:fittest/features/test_processing/presentation/test_processing_page_pc.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
@@ -46,7 +47,7 @@ class StartTestButton extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const TestProcessingPage(
+                  builder: (context) => const TestProcessingPagePc(
                     questionNumber: 1,
                     questionText: Strings.questionMock,
                     totalQuestions: 100,

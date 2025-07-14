@@ -1,3 +1,4 @@
+import 'package:fittest/features/home/presentation/widgets/light_bulb_icon.dart';
 import 'package:fittest/features/home/presentation/widgets/test_item.dart';
 import 'package:flutter/material.dart';
 import '../../../resources/strings.dart';
@@ -151,37 +152,9 @@ class HomePagePc extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context).padding.top + 20,
             right: 40,
-            child: _buildLightBulb(),
+            child: LightBulbIcon(),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildLightBulb() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(6),
-      child: IconButton(
-        icon: ShaderMask(
-          shaderCallback: (Rect bounds) {
-            return LinearGradient(
-              colors: [Colors.amber, Colors.yellow],
-            ).createShader(bounds);
-          },
-          child: const Icon(Icons.lightbulb, color: Colors.white),
-        ),
-        onPressed: () {},
       ),
     );
   }

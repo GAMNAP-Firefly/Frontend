@@ -99,7 +99,7 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                 child: Padding(
                   padding: const EdgeInsets.only(top: 0),
                   child: Center(
-                    child: SingleChildScrollView( // Убрали AnimatedBuilder отсюда
+                    child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.only(bottom: 40),
                       child: ConstrainedBox(
