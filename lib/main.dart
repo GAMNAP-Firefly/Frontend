@@ -1,3 +1,4 @@
+import 'package:fittest/features/home/presentation/home_page_pc.dart';
 import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart';
 import 'features/home/presentation/home_page.dart';
@@ -17,7 +18,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFECEFF4),
       ),
-      home: const HomePage(),
+      home: const HomePagePc(),
     );
   }
 }
