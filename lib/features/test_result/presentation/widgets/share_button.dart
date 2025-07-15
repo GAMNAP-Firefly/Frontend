@@ -1,10 +1,9 @@
 import 'package:fittest/features/home/presentation/home_page.dart';
-import 'package:fittest/features/home/presentation/home_page_pc.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
-class BackToMainScreenButton extends StatelessWidget {
-  const BackToMainScreenButton({super.key});
+class ShareResultsButton extends StatelessWidget {
+  const ShareResultsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +31,11 @@ class BackToMainScreenButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(28),
           onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePagePc(),
-              ),
-            );
+            /// TODO: логика поделиться результатом
           },
           child: Center(
             child: Text(
-              Strings.backToMainScreenButton,
+              Strings.shareResults,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,

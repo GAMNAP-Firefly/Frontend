@@ -1,3 +1,4 @@
+import 'package:fittest/features/home/presentation/home_page_pc.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/strings.dart';
@@ -89,6 +90,37 @@ class TestDescriptionCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class TestDescriptionCardWithBackButton extends StatelessWidget {
+  const TestDescriptionCardWithBackButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        const TestDescriptionCard(),
+        Positioned(
+          left: 16,
+          top: 20,
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white,
+              size: 24,
+            ),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePagePc()),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

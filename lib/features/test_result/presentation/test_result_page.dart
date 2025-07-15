@@ -2,6 +2,7 @@ import 'package:fittest/features/test_result/presentation/widgets/app_bar.dart';
 import 'package:fittest/features/test_result/presentation/widgets/back_to_main_screen_button.dart';
 import 'package:fittest/features/test_result/presentation/widgets/interpretation_card.dart';
 import 'package:fittest/features/test_result/presentation/widgets/result_card.dart';
+import 'package:fittest/features/test_result/presentation/widgets/share_button.dart';
 import 'package:fittest/resources/strings.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,8 @@ class TestResultPage extends StatelessWidget {
             const SizedBox(height: 20),
             const InterpretationCard(),
             const SizedBox(height: 30),
+            const ShareResultsButton(),
+            const SizedBox(height: 12),
             const BackToMainScreenButton(),
           ],
         ),
