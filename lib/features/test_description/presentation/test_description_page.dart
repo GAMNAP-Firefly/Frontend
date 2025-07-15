@@ -2,9 +2,12 @@ import 'package:fittest/features/test_description/presentation/widgets/app_bar.d
 import 'package:fittest/features/test_description/presentation/widgets/continue_button.dart';
 import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
 
 import '../../../resources/strings.dart';
 import '../../test_processing/presentation/test_proccesing_page.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class TestDescriptionPage extends StatefulWidget {
   const TestDescriptionPage({super.key});
@@ -51,8 +54,10 @@ class _TestDescriptionPageState extends State<TestDescriptionPage>
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     return Scaffold(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       body: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -69,7 +74,7 @@ class _TestDescriptionPageState extends State<TestDescriptionPage>
                       padding: const EdgeInsets.fromLTRB(24, 72, 24, 40),
                       child: Column(
                         children: [
-                          const TestDescriptionCard(),
+                          TestDescriptionCard(colors: colors),
                           const SizedBox(height: 44),
                           StartTestButton(
                             controller: _controller,

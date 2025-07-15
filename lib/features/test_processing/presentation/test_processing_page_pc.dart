@@ -2,6 +2,9 @@ import 'package:fittest/features/test_description/presentation/test_description_
 import 'package:fittest/features/test_result/presentation/test_result_page_pc.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
 
 import 'widgets/app_drawer_pc.dart';
 import 'widgets/question_card.dart';
@@ -29,10 +32,12 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     final drawerWidth = MediaQuery.of(context).size.width * 0.3;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       body: Stack(
         children: [
           AnimatedPositioned(
@@ -47,6 +52,7 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
               onQuestionSelected: _navigateToQuestion,
               crossAxisCount: 6,
               itemSizeFactor: 0.5,
+              colors: colors,
             ),
           ),
 
@@ -55,7 +61,7 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
             curve: Curves.easeInOut,
             padding: EdgeInsets.only(left: _isDrawerOpen ? drawerWidth : 0),
             child: Container(
-              color: const Color(0xFFECEFF4),
+              color: colors.background,
               child: Stack(
                 children: [
                   Column(
@@ -64,9 +70,9 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 20),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
+                        decoration: BoxDecoration(
+                          color: colors.blockBackground,
+                          boxShadow: const [
                             BoxShadow(
                               color: Color(0x11000000),
                               blurRadius: 10,
@@ -82,7 +88,7 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFECEFF4),
+                                    color: colors.background,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: IconButton(
@@ -90,7 +96,7 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                                       _isDrawerOpen
                                           ? Icons.chevron_left
                                           : Icons.menu_rounded,
-                                      color: const Color(0xFF3D4853),
+                                      color: colors.darkGrey,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -102,10 +108,10 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
 
                                 Text(
                                   '${widget.questionNumber}/${widget.totalQuestions}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF3D4853),
+                                    color: colors.headerText,
                                     fontFamily: "Raleway",
                                   ),
                                 ),
@@ -119,8 +125,8 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                               borderRadius: BorderRadius.circular(4),
                               child: LinearProgressIndicator(
                                 value: widget.questionNumber / widget.totalQuestions,
-                                backgroundColor: const Color(0xFFD8DEE9),
-                                color: const Color(0xFF8FBCBB),
+                                backgroundColor: colors.progressBarSecondary,
+                                color: colors.progressBar,
                                 minHeight: 6,
                               ),
                             ),
@@ -142,10 +148,12 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                                     QuestionCard(
                                       questionNumber: widget.questionNumber,
                                       questionText: widget.questionText,
+                                      colors: colors,
                                     ),
                                     const SizedBox(height: 40),
                                     AnswerButtons(
                                       onAnswerSelected: _navigateToNext,
+                                      colors: colors,
                                     ),
                                   ],
                                 ),
@@ -162,11 +170,11 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                     bottom: 40,
                     child: FloatingActionButton(
                       onPressed: _navigateBack,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colors.blockBackground,
                       elevation: 4,
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        color: Color(0xFF3D4853),
+                        color: colors.darkGrey,
                       ),
                     ),
                   ),

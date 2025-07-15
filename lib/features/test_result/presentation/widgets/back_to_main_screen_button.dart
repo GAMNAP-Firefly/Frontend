@@ -2,9 +2,11 @@ import 'package:fittest/features/home/presentation/home_page.dart';
 import 'package:fittest/features/home/presentation/home_page_pc.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class BackToMainScreenButton extends StatelessWidget {
-  const BackToMainScreenButton({super.key});
+  final AppColorsScheme colors;
+  const BackToMainScreenButton({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +14,15 @@ class BackToMainScreenButton extends StatelessWidget {
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF8FBCBB), Color(0xFF88B2D0)],
+        gradient: LinearGradient(
+          colors: [colors.primary, colors.secondary],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF8FBCBB).withOpacity(0.3),
+            color: colors.primary.withOpacity(0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -42,8 +44,8 @@ class BackToMainScreenButton extends StatelessWidget {
           child: Center(
             child: Text(
               Strings.backToMainScreenButton,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: colors.buttonText,
                 fontSize: 18,
                 fontFamily: "Raleway",
                 fontWeight: FontWeight.w700,

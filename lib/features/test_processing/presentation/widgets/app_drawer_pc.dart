@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class AppDrawer extends StatelessWidget {
   final int questionCount;
   final Function(int) onQuestionSelected;
   final int crossAxisCount;
   final double itemSizeFactor;
+  final AppColorsScheme colors;
 
   const AppDrawer({
     super.key,
@@ -13,6 +15,7 @@ class AppDrawer extends StatelessWidget {
     required this.onQuestionSelected,
     required this.crossAxisCount,
     required this.itemSizeFactor,
+    required this.colors,
   });
 
   @override
@@ -22,7 +25,7 @@ class AppDrawer extends StatelessWidget {
         final width = constraints.maxWidth;
         return Container(
           width: width,
-          color: Colors.white, // Белый фон всего drawer
+          color: colors.blockBackground,
           child: Column(
             children: [
               _buildHeader(context, width),
@@ -44,10 +47,10 @@ class AppDrawer extends StatelessWidget {
         right: 24,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.1),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
@@ -56,14 +59,13 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Логотип и название по центру
           Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 28, // Немного увеличил высоту логотипа
+                  height: 28,
                   child: Image.asset(
                     Strings.fittinImage,
                     fit: BoxFit.contain,
@@ -72,10 +74,10 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   Strings.title,
-                  style: const TextStyle(
-                    fontSize: 28, // Увеличил размер шрифта
+                  style: TextStyle(
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF3D4853),
+                    color: colors.headerText,
                     fontFamily: "Raleway",
                   ),
                 ),
@@ -87,9 +89,14 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildQuestionsGrid(double availableWidth) {
-    final itemSize = (availableWidth * 0.15 * itemSizeFactor);
-
+  Widget _buildQuestionsGrid(double width) {
+    final gradients = [
+      LinearGradient(colors: [colors.red, colors.accent], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.accent, colors.yellow], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.yellow, colors.green], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.green, colors.primary], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.primary, colors.secondary], begin: Alignment.centerLeft, end: Alignment.centerRight),
+    ];
     return Padding(
       padding: const EdgeInsets.all(16),
       child: GridView.builder(
@@ -101,59 +108,22 @@ class AppDrawer extends StatelessWidget {
         ),
         itemCount: questionCount,
         itemBuilder: (context, index) {
-          final gradients = const [
-            LinearGradient(
-              colors: [Color(0xFFBF616A), Color(0xFFD08770)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFEBCB8B), Color(0xFFA3BE8C)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFA3BE8C), Color(0xFF8FBCBB)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFF8FBCBB), Color(0xFF88B2D0)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-          ];
-
-          return SizedBox(
-            width: itemSize,
-            height: itemSize,
-            child: Material(
-              borderRadius: BorderRadius.circular(12),
-              elevation: 2,
-              color: Colors.white, // Белый фон для Material
-              child: InkWell(
+          final gradient = gradients[index % gradients.length];
+          return InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () => onQuestionSelected(index + 1),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: gradient,
                 borderRadius: BorderRadius.circular(12),
-                onTap: () => onQuestionSelected(index + 1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: gradients[index % gradients.length],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Raleway",
-                      ),
-                    ),
+              ),
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: TextStyle(
+                    color: colors.buttonText,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),

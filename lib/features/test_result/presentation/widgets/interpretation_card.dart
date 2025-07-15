@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class InterpretationCard extends StatelessWidget {
-  const InterpretationCard({super.key});
+  final AppColorsScheme colors;
+  const InterpretationCard({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class InterpretationCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -24,13 +26,13 @@ class InterpretationCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const InterpretationHeader(),
+          InterpretationHeader(colors: colors),
           const SizedBox(height: 16),
           Text(
             _getGeneralInterpretation(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF737E8A),
+              color: colors.questionText,
               fontWeight: FontWeight.bold,
               fontFamily: "Raleway",
             ),
@@ -46,7 +48,8 @@ class InterpretationCard extends StatelessWidget {
 }
 
 class InterpretationHeader extends StatelessWidget {
-  const InterpretationHeader({super.key});
+  final AppColorsScheme colors;
+  const InterpretationHeader({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +59,8 @@ class InterpretationHeader extends StatelessWidget {
           width: 40,
           height: 40,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF8FBCBB), Color(0xFF88B2D0)],
+            gradient: LinearGradient(
+              colors: [colors.primary, colors.secondary],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -72,12 +75,12 @@ class InterpretationHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        const Text(
+        Text(
           Strings.resInterprTitle,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF3D4853),
+            color: colors.headerText,
             fontFamily: "Raleway",
           ),
         ),

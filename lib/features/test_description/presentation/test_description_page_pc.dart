@@ -3,6 +3,9 @@ import 'package:fittest/features/test_description/presentation/widgets/light_bul
 import 'package:fittest/features/test_description/presentation/widgets/test_description_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
 
 import '../../test_processing/presentation/test_processing_page_pc.dart';
 
@@ -51,9 +54,11 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       body: Stack(
         children: [
           Column(
@@ -75,10 +80,10 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                       const SizedBox(width: 4),
                       Text(
                         Strings.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF3D4853),
+                          color: colors.headerText,
                           fontFamily: "Raleway",
                         ),
                       ),
@@ -87,9 +92,9 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                   const SizedBox(height: 4),
                   Text(
                     Strings.instructions,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF737E8A),
+                      color: colors.questionText,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Raleway",
                     ),
@@ -109,7 +114,7 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const TestDescriptionCardWithBackButton(),
+                            TestDescriptionCardWithBackButton(colors: colors),
                             const SizedBox(height: 24),
                             Row(
                               children: [

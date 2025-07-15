@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final AppColorsScheme colors;
 
   const CustomAppBar({
     super.key,
     required this.title,
+    required this.colors,
   });
 
   @override
@@ -14,19 +17,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: colors.blockBackground,
       elevation: 0,
       centerTitle: true,
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF3D4853),
+          color: colors.headerText,
           fontFamily: "Raleway",
         ),
       ),
-      iconTheme: const IconThemeData(color: Color(0xFF3D4853)),
+      iconTheme: IconThemeData(color: colors.headerText),
     );
   }
 }

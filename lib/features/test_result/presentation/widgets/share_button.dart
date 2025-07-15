@@ -1,9 +1,11 @@
 import 'package:fittest/features/home/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class ShareResultsButton extends StatelessWidget {
-  const ShareResultsButton({super.key});
+  final AppColorsScheme colors;
+  const ShareResultsButton({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +13,15 @@ class ShareResultsButton extends StatelessWidget {
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF8FBCBB), Color(0xFF88B2D0)],
+        gradient: LinearGradient(
+          colors: [colors.primary, colors.secondary],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF8FBCBB).withOpacity(0.3),
+            color: colors.primary.withOpacity(0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
