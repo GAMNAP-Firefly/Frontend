@@ -7,11 +7,13 @@ import '../../../test_processing/presentation/test_proccesing_page.dart';
 class StartTestButton extends StatelessWidget {
   final AnimationController controller;
   final String buttonText;
+  final VoidCallback onPressed;
 
   const StartTestButton({
     super.key,
     required this.controller,
     required this.buttonText,
+    required this.onPressed
   });
 
   @override
@@ -44,16 +46,7 @@ class StartTestButton extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TestProcessingPagePc(
-                    questionNumber: 1,
-                    questionText: Strings.questionMock,
-                    totalQuestions: 100,
-                  ),
-                ),
-              );
+              onPressed;
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16),

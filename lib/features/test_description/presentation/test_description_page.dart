@@ -4,6 +4,7 @@ import 'package:fittest/features/test_description/presentation/widgets/test_desc
 import 'package:flutter/material.dart';
 
 import '../../../resources/strings.dart';
+import '../../test_processing/presentation/test_proccesing_page.dart';
 
 class TestDescriptionPage extends StatefulWidget {
   const TestDescriptionPage({super.key});
@@ -70,9 +71,35 @@ class _TestDescriptionPageState extends State<TestDescriptionPage>
                         children: [
                           const TestDescriptionCard(),
                           const SizedBox(height: 44),
-                          StartTestButton(controller: _controller, buttonText: Strings.startF),
+                          StartTestButton(
+                            controller: _controller,
+                            buttonText: Strings.startF,
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TestProcessingPage(
+                                  questionNumber: 1,
+                                  questionText: Strings.questionMock,
+                                  totalQuestions: 100,
+                                ),
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 12),
-                          StartTestButton(controller: _controller, buttonText: Strings.startM),
+                          StartTestButton(
+                            controller: _controller,
+                            buttonText: Strings.startM,
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TestProcessingPage(
+                                  questionNumber: 1,
+                                  questionText: Strings.questionMock,
+                                  totalQuestions: 100,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

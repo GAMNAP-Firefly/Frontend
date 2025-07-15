@@ -3,7 +3,6 @@ import 'package:fittest/features/test_result/presentation/test_result_page_pc.da
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
-import '../../test_result/presentation/test_result_page.dart';
 import 'widgets/app_drawer_pc.dart';
 import 'widgets/question_card.dart';
 import 'widgets/answer_buttons.dart';
@@ -51,7 +50,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
             ),
           ),
 
-          // Основной контент
           AnimatedPadding(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -81,7 +79,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // Кнопка меню
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
@@ -103,7 +100,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                                   ),
                                 ),
 
-                                // Номер вопроса
                                 Text(
                                   '${widget.questionNumber}/${widget.totalQuestions}',
                                   style: const TextStyle(
@@ -114,13 +110,11 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                                   ),
                                 ),
 
-                                // Иконка лампочки
                                 const LightBulbIcon(),
                               ],
                             ),
                             const SizedBox(height: 16),
 
-                            // Прогресс-бар
                             ClipRRect(
                               borderRadius: BorderRadius.circular(4),
                               child: LinearProgressIndicator(
@@ -134,7 +128,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                         ),
                       ),
 
-                      // Основной контент
                       Expanded(
                         child: Center(
                           child: SingleChildScrollView(
@@ -164,7 +157,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
                     ],
                   ),
 
-                  // Кнопка "Назад"
                   Positioned(
                     right: 40,
                     bottom: 40,
@@ -190,7 +182,6 @@ class _TestProcessingPagePcState extends State<TestProcessingPagePc> {
   @override
   void initState() {
     super.initState();
-    // Drawer изначально открыт
     _isDrawerOpen = true;
   }
 

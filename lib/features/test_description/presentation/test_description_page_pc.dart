@@ -4,6 +4,8 @@ import 'package:fittest/features/test_description/presentation/widgets/test_desc
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
 
+import '../../test_processing/presentation/test_processing_page_pc.dart';
+
 class TestDescriptionPagePc extends StatefulWidget {
   const TestDescriptionPagePc({super.key});
 
@@ -115,6 +117,18 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                                   child: StartTestButton(
                                     controller: _controller,
                                     buttonText: Strings.startF,
+                                    onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TestProcessingPagePc(
+                                              questionNumber: 1,
+                                              questionText:
+                                                  Strings.questionMock,
+                                              totalQuestions: 100,
+                                            ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 16),
@@ -122,6 +136,18 @@ class _TestDescriptionPagePcState extends State<TestDescriptionPagePc>
                                   child: StartTestButton(
                                     controller: _controller,
                                     buttonText: Strings.startM,
+                                    onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                        const TestProcessingPagePc(
+                                          questionNumber: 1,
+                                          questionText:
+                                          Strings.questionMock,
+                                          totalQuestions: 100,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
