@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class AppDrawer extends StatelessWidget {
   final int questionCount;
   final Function(int) onQuestionSelected;
+  final AppColorsScheme colors;
 
   const AppDrawer({
     super.key,
     required this.questionCount,
     required this.onQuestionSelected,
+    required this.colors,
   });
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       child: Column(
         children: [
           _buildHeader(context),
@@ -33,7 +36,7 @@ class AppDrawer extends StatelessWidget {
         right: 24,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -42,44 +45,25 @@ class AppDrawer extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 24,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    Strings.fittinImage,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                Strings.title,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF3D4853),
-                  fontFamily: "Raleway",
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          IconButton(
-            icon: const Icon(Icons.close_rounded, color: Color(0xFF3D4853)),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
+      child: Text(
+        'Вопросы',
+        style: TextStyle(
+          color: colors.headerText,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
       ),
     );
   }
 
   Widget _buildQuestionsGrid() {
+    final gradients = [
+      LinearGradient(colors: [colors.red, colors.accent], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.accent, colors.yellow], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.yellow, colors.green], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.green, colors.primary], begin: Alignment.centerLeft, end: Alignment.centerRight),
+      LinearGradient(colors: [colors.primary, colors.secondary], begin: Alignment.centerLeft, end: Alignment.centerRight),
+    ];
     return Padding(
       padding: const EdgeInsets.all(16),
       child: GridView.builder(
@@ -91,55 +75,19 @@ class AppDrawer extends StatelessWidget {
         ),
         itemCount: questionCount,
         itemBuilder: (context, index) {
-          final gradients = const [
-            LinearGradient(
-              colors: [Color(0xFFBF616A), Color(0xFFD08770)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFEBCB8B), Color(0xFFA3BE8C)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFFA3BE8C), Color(0xFF8FBCBB)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            LinearGradient(
-              colors: [Color(0xFF8FBCBB), Color(0xFF88B2D0)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-          ];
-
-          return Material(
-            borderRadius: BorderRadius.circular(12),
-            elevation: 2,
-            child: InkWell(
+          final gradient = gradients[index % gradients.length];
+          return Container(
+            decoration: BoxDecoration(
+              gradient: gradient,
               borderRadius: BorderRadius.circular(12),
-              onTap: () => onQuestionSelected(index + 1),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: gradients[index % gradients.length],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    '${index + 1}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "Raleway",
-                    ),
-                  ),
+            ),
+            child: Center(
+              child: Text(
+                '${index + 1}',
+                style: TextStyle(
+                  color: colors.buttonText,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../theme/theme_bloc.dart';
 
 class LightBulbIcon extends StatelessWidget {
 
@@ -8,6 +10,18 @@ class LightBulbIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    LinearGradient gradient;
+    switch (theme) {
+      case AppTheme.dark:
+        gradient = const LinearGradient(colors: [Color(0xFF8F00FF), Color(0xFF4B0082)]); // фиолетовый
+        break;
+      case AppTheme.red:
+        gradient = const LinearGradient(colors: [Color(0xFFF49BA1), Color(0xFFF2AEAD)]); // розовый
+        break;
+      default:
+        gradient = const LinearGradient(colors: [Colors.amber, Colors.yellow]);
+    }
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -24,13 +38,11 @@ class LightBulbIcon extends StatelessWidget {
       child: IconButton(
         icon: ShaderMask(
           shaderCallback: (Rect bounds) {
-            return LinearGradient(
-              colors: [Colors.amber, Colors.yellow],
-            ).createShader(bounds);
+            return gradient.createShader(bounds);
           },
           child: const Icon(Icons.lightbulb, color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () => context.read<ThemeCubit>().nextTheme(),
       ),
     );
   }

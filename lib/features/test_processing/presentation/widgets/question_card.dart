@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class QuestionCard extends StatelessWidget {
   final int questionNumber;
   final String questionText;
+  final AppColorsScheme colors;
 
   const QuestionCard({
     super.key,
     required this.questionNumber,
     required this.questionText,
+    required this.colors,
   });
 
   @override
   Widget build(BuildContext context) {
-    final gradient = const LinearGradient(
-      colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+    final gradient = LinearGradient(
+      colors: [colors.red, colors.accent],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
     );
@@ -22,7 +25,7 @@ class QuestionCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -59,10 +62,10 @@ class QuestionCard extends StatelessWidget {
               const SizedBox(width: 12),
               Text(
                 'Вопрос #$questionNumber',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF3D4853),
+                  color: colors.headerText,
                   fontFamily: "Raleway",
                 ),
               ),
@@ -71,9 +74,9 @@ class QuestionCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             questionText,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 17,
-              color: Color(0xFF737E8A),
+              color: colors.questionText,
               fontWeight: FontWeight.bold,
               fontFamily: "Raleway",
               height: 1.4,

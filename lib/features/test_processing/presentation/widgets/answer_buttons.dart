@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class AnswerButtons extends StatelessWidget {
   final Function(String) onAnswerSelected;
+  final AppColorsScheme colors;
 
   const AnswerButtons({
     super.key,
     required this.onAnswerSelected,
+    required this.colors,
   });
 
   @override
@@ -15,8 +18,8 @@ class AnswerButtons extends StatelessWidget {
       children: [
         _buildAnswerButton(
           text: "Верно",
-          gradient: const LinearGradient(
-            colors: [Color(0xFFA3BE8C), Color(0xFF8FBCBB)],
+          gradient: LinearGradient(
+            colors: [colors.green, colors.primary],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -25,8 +28,8 @@ class AnswerButtons extends StatelessWidget {
         const SizedBox(height: 16),
         _buildAnswerButton(
           text: "Не знаю",
-          gradient: const LinearGradient(
-            colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
+          gradient: LinearGradient(
+            colors: [colors.accent, colors.yellow],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -35,8 +38,8 @@ class AnswerButtons extends StatelessWidget {
         const SizedBox(height: 16),
         _buildAnswerButton(
           text: "Неверно",
-          gradient: const LinearGradient(
-            colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+          gradient: LinearGradient(
+            colors: [colors.red, colors.accent],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),

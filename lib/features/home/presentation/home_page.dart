@@ -1,16 +1,23 @@
 import 'package:fittest/features/home/presentation/widgets/test_item.dart';
 import 'package:flutter/material.dart';
 import 'package:fittest/features/test_description/presentation/test_description_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
 
 import '../../../resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
+
+import '../../test_description/presentation/widgets/light_bulb_icon.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     return Scaffold(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       body: Column(
         children: [
           Material(
@@ -29,7 +36,7 @@ class HomePage extends StatelessWidget {
                 bottom: 20,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colors.blockBackground,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
@@ -42,65 +49,19 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 24,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Image.asset(
-                                    Strings.fittinImage,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                Strings.title,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xFF3D4853),
-                                  fontFamily: "Raleway",
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            Strings.instructions,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: const Color(0xFF737E8A),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Raleway",
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        icon: ShaderMask(
-                          shaderCallback: (Rect bounds) {
-                            return LinearGradient(
-                              colors: [Colors.amber, Colors.yellow],
-                            ).createShader(bounds);
-                          },
-                          child: const Icon(Icons.lightbulb, color: Colors.white),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
+                  Text(
+                    Strings.title,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: colors.headerText,
+                      fontFamily: "Raleway",
+                    ),
                   ),
+                  LightBulbIcon(),
                 ],
               ),
             ),
@@ -117,8 +78,8 @@ class HomePage extends StatelessWidget {
                     title: Strings.testNameMock1,
                     description: Strings.homePageDesc1,
                     buttonText: Strings.startTestButton,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+                    gradient: LinearGradient(
+                      colors: [colors.red, colors.accent],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -130,6 +91,7 @@ class HomePage extends StatelessWidget {
                         ),
                       );
                     },
+                    colors: colors,
                   ),
                   const SizedBox(height: 16),
 
@@ -139,8 +101,8 @@ class HomePage extends StatelessWidget {
                     title: Strings.testNameMock2,
                     description: Strings.homePageDesc2,
                     buttonText: Strings.startTestButton,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
+                    gradient: LinearGradient(
+                      colors: [colors.accent, colors.yellow],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -152,6 +114,7 @@ class HomePage extends StatelessWidget {
                         ),
                       );
                     },
+                    colors: colors,
                   ),
                   const SizedBox(height: 16),
 
@@ -161,8 +124,8 @@ class HomePage extends StatelessWidget {
                     title: Strings.testNameMock3,
                     description: Strings.homePageDesc3,
                     buttonText: Strings.startTestButton,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFEBCB8B), Color(0xFFA3BE8C)],
+                    gradient: LinearGradient(
+                      colors: [colors.yellow, colors.green],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -174,6 +137,7 @@ class HomePage extends StatelessWidget {
                         ),
                       );
                     },
+                    colors: colors,
                   ),
                   const SizedBox(height: 16),
 
@@ -183,14 +147,15 @@ class HomePage extends StatelessWidget {
                     title: Strings.results,
                     description: Strings.homepageResDesc,
                     buttonText: Strings.myResultsButton,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF8FBCBB), Color(0xFF8FBCBB)],
+                    gradient: LinearGradient(
+                      colors: [colors.primary, colors.primary],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     onPressed: () {
                       // Навигация для страницы результатов
                     },
+                    colors: colors,
                   ),
                 ],
               ),

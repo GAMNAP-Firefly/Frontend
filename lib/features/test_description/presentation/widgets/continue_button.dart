@@ -1,8 +1,4 @@
-import 'package:fittest/features/test_processing/presentation/test_processing_page_pc.dart';
 import 'package:flutter/material.dart';
-import 'package:fittest/resources/strings.dart';
-
-import '../../../test_processing/presentation/test_proccesing_page.dart';
 
 class StartTestButton extends StatelessWidget {
   final AnimationController controller;
@@ -45,9 +41,7 @@ class StartTestButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              onPressed;
-            },
+            onTap: onPressed,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16),
               alignment: Alignment.center,

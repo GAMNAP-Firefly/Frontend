@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fittest/resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
+import '../../home/presentation/widgets/light_bulb_icon.dart';
 
 import '../../test_description/presentation/test_description_page.dart';
 import '../../test_result/presentation/test_result_page.dart';
@@ -28,75 +32,70 @@ class _TestProcessingPageState extends State<TestProcessingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFFECEFF4),
-      appBar: _buildAppBar(),
+      backgroundColor: colors.background,
+      appBar: _buildAppBar(colors, theme),
       drawer: AppDrawer(
         questionCount: widget.totalQuestions,
         onQuestionSelected: _navigateToQuestion,
+        colors: colors,
       ),
-      body: _buildBody(),
-      floatingActionButton: _buildBackButton(),
+      body: _buildBody(colors, theme),
+      floatingActionButton: _buildBackButton(colors, theme),
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(AppColorsScheme colors, AppTheme theme) {
     final progress = widget.questionNumber / widget.totalQuestions;
-
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: colors.blockBackground,
       elevation: 0,
       leading: IconButton(
         icon: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFFECEFF4),
+            color: colors.background,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.menu_rounded,
-            color: Color(0xFF3D4853),
+            color: colors.darkGrey,
           ),
         ),
         onPressed: () => _scaffoldKey.currentState?.openDrawer(),
       ),
       title: Text(
         '${widget.questionNumber}/${widget.totalQuestions}',
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF3D4853),
+          color: colors.headerText,
           fontFamily: "Raleway",
         ),
       ),
       centerTitle: true,
       actions: [
         IconButton(
-          icon: ShaderMask(
-            shaderCallback: (Rect bounds) {
-              return const LinearGradient(
-                colors: [Colors.amber, Colors.yellow],
-              ).createShader(bounds);
-            },
-            child: const Icon(Icons.lightbulb, color: Colors.white),
-          ),
-          onPressed: () {},
+          icon: LightBulbIcon(),
+          onPressed: null,
         ),
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(4),
         child: LinearProgressIndicator(
           value: progress,
-          backgroundColor: const Color(0xFFD8DEE9),
-          color: const Color(0xFF8FBCBB),
+          backgroundColor: colors.progressBarSecondary,
+          color: colors.progressBar,
           minHeight: 4,
         ),
       ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(AppColorsScheme colors, AppTheme theme) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
@@ -116,10 +115,12 @@ class _TestProcessingPageState extends State<TestProcessingPage> {
                       QuestionCard(
                         questionNumber: widget.questionNumber,
                         questionText: widget.questionText,
+                        colors: colors,
                       ),
                       const SizedBox(height: 40),
                       AnswerButtons(
                         onAnswerSelected: _navigateToNext,
+                        colors: colors,
                       ),
                     ],
                   ),
@@ -132,14 +133,14 @@ class _TestProcessingPageState extends State<TestProcessingPage> {
     );
   }
 
-  Widget _buildBackButton() {
+  Widget _buildBackButton(AppColorsScheme colors, AppTheme theme) {
     return FloatingActionButton(
       onPressed: _navigateBack,
-      backgroundColor: Colors.white,
+      backgroundColor: colors.blockBackground,
       elevation: 4,
-      child: const Icon(
+      child: Icon(
         Icons.arrow_back_ios_new_rounded,
-        color: Color(0xFF3D4853),
+        color: colors.darkGrey,
       ),
     );
   }

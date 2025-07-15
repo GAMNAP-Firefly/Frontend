@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class TestItem extends StatelessWidget {
   final String icon;
@@ -7,6 +8,7 @@ class TestItem extends StatelessWidget {
   final String buttonText;
   final Gradient gradient;
   final VoidCallback onPressed;
+  final AppColorsScheme colors;
 
   const TestItem({
     required this.icon,
@@ -15,6 +17,7 @@ class TestItem extends StatelessWidget {
     required this.buttonText,
     required this.gradient,
     required this.onPressed,
+    required this.colors,
     super.key,
   });
 
@@ -24,7 +27,7 @@ class TestItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -63,10 +66,10 @@ class TestItem extends StatelessWidget {
                 const SizedBox(width: 12),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF3D4853),
+                    color: colors.headerText,
                     fontFamily: "Raleway",
                   ),
                 ),
@@ -75,9 +78,9 @@ class TestItem extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               description,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: Color(0xFF737E8A),
+                color: colors.questionText,
                 fontWeight: FontWeight.bold,
                 fontFamily: "Raleway",
               ),

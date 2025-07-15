@@ -3,16 +3,21 @@ import 'package:fittest/features/home/presentation/widgets/test_item.dart';
 import 'package:flutter/material.dart';
 import '../../../resources/strings.dart';
 import '../../test_description/presentation/test_description_page_pc.dart';
+import 'package:fittest/resources/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../theme/theme_bloc.dart';
 
 class HomePagePc extends StatelessWidget {
   const HomePagePc({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeCubit>().state.theme;
+    final colors = AppColors.getScheme(theme);
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFECEFF4),
+      backgroundColor: colors.background,
       body: Stack(
         children: [
           Column(
@@ -34,10 +39,10 @@ class HomePagePc extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         Strings.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF3D4853),
+                          color: colors.headerText,
                           fontFamily: "Raleway",
                         ),
                       ),
@@ -46,9 +51,9 @@ class HomePagePc extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     Strings.instructions,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF737E8A),
+                      color: colors.questionText,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Raleway",
                     ),
@@ -77,12 +82,13 @@ class HomePagePc extends StatelessWidget {
                                     title: Strings.testNameMock1,
                                     description: Strings.homePageDesc1,
                                     buttonText: Strings.startTestButton,
-                                    gradient: const LinearGradient(
-                                      colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+                                    gradient: LinearGradient(
+                                      colors: [colors.red, colors.accent],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
                                     onPressed: () => _navigateToTest(context),
+                                    colors: colors,
                                   ),
                                 ),
                               ),
@@ -94,12 +100,13 @@ class HomePagePc extends StatelessWidget {
                                     title: Strings.testNameMock2,
                                     description: Strings.homePageDesc2,
                                     buttonText: Strings.startTestButton,
-                                    gradient: const LinearGradient(
-                                      colors: [Color(0xFFD08770), Color(0xFFEBCB8B)],
+                                    gradient: LinearGradient(
+                                      colors: [colors.accent, colors.yellow],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
                                     onPressed: () => _navigateToTest(context),
+                                    colors: colors,
                                   ),
                                 ),
                               ),
@@ -111,12 +118,13 @@ class HomePagePc extends StatelessWidget {
                                     title: Strings.testNameMock3,
                                     description: Strings.homePageDesc3,
                                     buttonText: Strings.startTestButton,
-                                    gradient: const LinearGradient(
-                                      colors: [Color(0xFFEBCB8B), Color(0xFFA3BE8C)],
+                                    gradient: LinearGradient(
+                                      colors: [colors.yellow, colors.green],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
                                     onPressed: () => _navigateToTest(context),
+                                    colors: colors,
                                   ),
                                 ),
                               ),
@@ -131,12 +139,13 @@ class HomePagePc extends StatelessWidget {
                                 title: Strings.results,
                                 description: Strings.homepageResDesc,
                                 buttonText: Strings.myResultsButton,
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFF8FBCBB), Color(0xFF8FBCBB)],
+                                gradient: LinearGradient(
+                                  colors: [colors.primary, colors.primary],
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
                                 ),
                                 onPressed: () {},
+                                colors: colors,
                               ),
                             ),
                           ),

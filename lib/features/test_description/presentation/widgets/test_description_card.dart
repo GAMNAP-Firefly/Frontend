@@ -2,14 +2,16 @@ import 'package:fittest/features/home/presentation/home_page_pc.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/strings.dart';
+import 'package:fittest/resources/app_colors.dart';
 
 class TestDescriptionCard extends StatelessWidget {
-  const TestDescriptionCard({super.key});
+  final AppColorsScheme colors;
+  const TestDescriptionCard({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
-    final titleGradient = const LinearGradient(
-      colors: [Color(0xFFBF616A), Color(0xFFD08770)],
+    final titleGradient = LinearGradient(
+      colors: [colors.red, colors.accent],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
     );
@@ -17,7 +19,7 @@ class TestDescriptionCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.blockBackground,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -95,14 +97,15 @@ class TestDescriptionCard extends StatelessWidget {
 }
 
 class TestDescriptionCardWithBackButton extends StatelessWidget {
-  const TestDescriptionCardWithBackButton({super.key});
+  final AppColorsScheme colors;
+  const TestDescriptionCardWithBackButton({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        const TestDescriptionCard(),
+        TestDescriptionCard(colors: colors),
         Positioned(
           left: 16,
           top: 20,
